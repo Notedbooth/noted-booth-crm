@@ -50,7 +50,7 @@ export const Route = createFileRoute("/api/public/booking-requests")({
           return Response.json({ error: "invalid_payload", issues: parsed.error.flatten() }, { status: 422 });
         }
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        const row = { ...parsed.data, source: "website", payload: body as never };
+        const row = { ...parsed.data, source: "website", payload: body as never } as never;
         const { data, error } = parsed.data.external_ref
           ? await supabaseAdmin.from("booking_requests").upsert(row, { onConflict: "external_ref" }).select("id").single()
           : await supabaseAdmin.from("booking_requests").insert(row).select("id").single();
