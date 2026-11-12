@@ -32,7 +32,7 @@ import {
 import { INTERACTION_LABELS, INTERACTION_TYPES, type InteractionType } from "@/lib/constants";
 import { fmtDate, fmtDateTime, fmtMoney, fmtRelative } from "@/lib/format";
 
-export const Route = createFileRoute("/_authenticated/customers/$id")({
+export const Route = createFileRoute("/_authenticated/customers/")({
   head: () => ({ meta: [{ title: "ملف العميل — NOTED PHOTO BOOTH" }] }),
   loader: async ({ context, params }) => {
     const c = await context.queryClient.ensureQueryData(customerQuery(params.id));
