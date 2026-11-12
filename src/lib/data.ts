@@ -203,12 +203,12 @@ export const interactionsQuery = (customerId: string) =>
   });
 
 export type ActivityFilters = {
-  customerId?: string;
-  actorId?: string;
-  entityType?: string;
-  from?: string;
-  to?: string;
-  limit?: number;
+  customerId?: string | undefined;
+  actorId?: string | undefined;
+  entityType?: string | undefined;
+  from?: string | undefined;
+  to?: string | undefined;
+  limit?: number | undefined;
 };
 
 export const activityQuery = (filters: ActivityFilters = {}) =>

@@ -87,7 +87,7 @@ function NewMemberDialog({ open, onOpenChange }: { open: boolean; onOpenChange: 
   const [busy, setBusy] = useState(false);
   async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
-    if (form.password.length < 8) return toast.error("كلمة المرور 8 أحرف على الأقل");
+    if (form.password.length < 8) { toast.error("كلمة المرور 8 أحرف على الأقل"); return; }
     setBusy(true);
     try {
       await create({ data: { ...form, phone: form.phone || undefined } });

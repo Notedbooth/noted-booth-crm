@@ -19,8 +19,8 @@ export function ConfirmDelete({
   onConfirm,
 }: {
   trigger: ReactNode;
-  title?: string;
-  description?: string;
+  title?: string | undefined;
+  description?: string | undefined;
   onConfirm: () => void;
 }) {
   return (

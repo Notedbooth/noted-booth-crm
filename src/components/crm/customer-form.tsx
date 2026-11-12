@@ -32,8 +32,8 @@ export function CustomerFormDialog({
 }: {
   open: boolean;
   onOpenChange: (o: boolean) => void;
-  customer?: Customer | null;
-  onSaved?: (c: Customer) => void;
+  customer?: Customer | null | undefined;
+  onSaved?: (c: Customer) => void | undefined;
 }) {
   const [form, setForm] = useState<FormState>(empty);
   const save = useSaveRecord("customers");
@@ -61,7 +61,7 @@ export function CustomerFormDialog({
   async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
     const parsed = schema.safeParse(form);
-    if (!parsed.success) return toast.error(parsed.error.issues[0]?.message);
+    if (!parsed.success) { toast.error(parsed.error.issues[0]?.message); return; }
     const saved = await save.mutateAsync({ id: customer?.id, values: clean(parsed.data) as never }).catch(() => null);
     if (!saved) return;
     toast.success(customer ? "تم تحديث بيانات العميل" : "تمت إضافة العميل");

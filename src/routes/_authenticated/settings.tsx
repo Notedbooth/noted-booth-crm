@@ -49,11 +49,11 @@ function ProfileCard() {
   async function save(e: FormEvent): Promise<unknown> {
     e.preventDefault();
     const { error } = await supabase.from("profiles").update({ full_name: name.trim(), phone: phone || null }).eq("id", me.userId);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     if (pw) {
-      if (pw.length < 8) return toast.error("كلمة المرور 8 أحرف على الأقل");
+      if (pw.length < 8) { toast.error("كلمة المرور 8 أحرف على الأقل"); return; }
       const { error: e2 } = await supabase.auth.updateUser({ password: pw });
-      if (e2) return toast.error(e2.message);
+      if (e2) { toast.error(e2.message); return; }
       setPw("");
     }
     qc.invalidateQueries({ queryKey: qk.me(me.userId) });
@@ -82,7 +82,7 @@ function PackagesCard() {
   const [form, setForm] = useState({ name: "", duration_hours: "", price: "", description: "" });
   async function add(e: FormEvent): Promise<unknown> {
     e.preventDefault();
-    if (!form.name.trim()) return toast.error("اسم الباقة مطلوب");
+    if (!form.name.trim()) { toast.error("اسم الباقة مطلوب"); return; }
     const ok = await save.mutateAsync({ values: { name: form.name.trim(), description: form.description || null, duration_hours: form.duration_hours ? Number(form.duration_hours) : null, price: form.price ? Number(form.price) : null, sort_order: data.length } }).catch(() => null);
     if (ok) { setForm({ name: "", duration_hours: "", price: "", description: "" }); toast.success("تمت إضافة الباقة"); }
   }

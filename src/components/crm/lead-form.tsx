@@ -35,9 +35,9 @@ export function LeadFormDialog({
 }: {
   open: boolean;
   onOpenChange: (o: boolean) => void;
-  lead?: Lead | null;
-  defaultCustomerId?: string;
-  defaultStage?: LeadStage;
+  lead?: Lead | null | undefined;
+  defaultCustomerId?: string | undefined;
+  defaultStage?: LeadStage | undefined;
 }) {
   const me = useMe();
   const save = useSaveRecord("leads");
@@ -89,12 +89,12 @@ export function LeadFormDialog({
 
   async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
-    if (!form.customer_id) return toast.error("اختر العميل");
-    if (form.title.trim().length < 2) return toast.error("عنوان الفرصة مطلوب");
+    if (!form.customer_id) { toast.error("اختر العميل"); return; }
+    if (form.title.trim().length < 2) { toast.error("عنوان الفرصة مطلوب"); return; }
     const guests = form.guests ? Number(form.guests) : null;
     const value = form.estimated_value ? Number(form.estimated_value) : null;
     if ((guests !== null && (!Number.isFinite(guests) || guests < 0)) || (value !== null && (!Number.isFinite(value) || value < 0)))
-      return toast.error("تحقق من الأرقام المدخلة");
+      { toast.error("تحقق من الأرقام المدخلة"); return; }
     const values = clean({
       ...form,
       title: form.title.trim(),

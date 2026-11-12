@@ -45,8 +45,8 @@ export function TaskFormDialog({
 }: {
   open: boolean;
   onOpenChange: (o: boolean) => void;
-  task?: Task | null;
-  defaults?: Defaults;
+  task?: Task | null | undefined;
+  defaults?: Defaults | undefined;
 }) {
   const me = useMe();
   const save = useSaveRecord("tasks");
@@ -87,7 +87,7 @@ export function TaskFormDialog({
 
   async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
-    if (form.title.trim().length < 2) return toast.error("عنوان المهمة مطلوب");
+    if (form.title.trim().length < 2) { toast.error("عنوان المهمة مطلوب"); return; }
     const values = clean({
       ...form,
       title: form.title.trim(),

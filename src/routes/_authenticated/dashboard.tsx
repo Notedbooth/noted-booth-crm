@@ -29,7 +29,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
 });
 
-function Stat({ icon: Icon, label, value, hint, tone }: { icon: typeof Users; label: string; value: string; hint?: string; tone?: "warn" }) {
+function Stat({ icon: Icon, label, value, hint, tone }: { icon: typeof Users; label: string; value: string; hint?: string | undefined; tone?: "warn" }) {
   return (
     <Card className="shadow-soft">
       <CardContent className="flex items-start justify-between gap-3 p-5">

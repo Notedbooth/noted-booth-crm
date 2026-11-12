@@ -106,7 +106,7 @@ function SignInForms() {
       redirectTo: `${window.location.origin}/reset-password`,
     });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("إن كان البريد مسجلاً، ستصلك رسالة لإعادة تعيين كلمة المرور.");
     setMode("signin");
   }
@@ -168,7 +168,7 @@ function SetupForm() {
 
   async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
-    if (form.password.length < 8) return toast.error("كلمة المرور يجب أن تكون 8 أحرف على الأقل");
+    if (form.password.length < 8) { toast.error("كلمة المرور يجب أن تكون 8 أحرف على الأقل"); return; }
     setBusy(true);
     try {
       await bootstrap({ data: form });

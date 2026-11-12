@@ -18,10 +18,10 @@ export function Field({
   hint,
 }: {
   label: string;
-  required?: boolean;
+  required?: boolean | undefined;
   children: ReactNode;
-  className?: string;
-  hint?: string;
+  className?: string | undefined;
+  hint?: string | undefined;
 }) {
   return (
     <div className={cn("space-y-1.5", className)}>
@@ -48,9 +48,9 @@ export function OptionSelect({
   value: string | null | undefined;
   onChange: (v: string | null) => void;
   options: { value: string; label: string }[];
-  placeholder?: string;
-  allowNone?: boolean;
-  noneLabel?: string;
+  placeholder?: string | undefined;
+  allowNone?: boolean | undefined;
+  noneLabel?: string | undefined;
 }) {
   return (
     <Select {...((value ?? (allowNone ? NONE : undefined)) !== undefined ? { value: (value ?? NONE) as string } : {})} onValueChange={(v) => onChange(v === NONE ? null : v)}>
@@ -96,7 +96,7 @@ export function SuggestInput({
   value: string;
   onChange: (v: string) => void;
   suggestions: string[];
-  placeholder?: string;
+  placeholder?: string | undefined;
   id: string;
 }) {
   return (
@@ -124,7 +124,7 @@ export function CustomerPicker({
 }: {
   value: string | null | undefined;
   onChange: (id: string | null) => void;
-  allowCreate?: boolean;
+  allowCreate?: boolean | undefined;
 }) {
   const [open, setOpen] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);

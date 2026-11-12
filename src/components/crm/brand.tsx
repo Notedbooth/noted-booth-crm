@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export function BrandMark({ className, tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {
+export function BrandMark({ className, tone = "dark" }: { className?: string | undefined; tone?: "dark" | "light" }) {
   return (
     <div className={cn("flex items-center gap-3", className)} dir="ltr">
       <div

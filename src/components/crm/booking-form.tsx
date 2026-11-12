@@ -57,10 +57,10 @@ export function BookingFormDialog({
 }: {
   open: boolean;
   onOpenChange: (o: boolean) => void;
-  booking?: Booking | null;
-  defaultCustomerId?: string;
-  fromLead?: Lead | null;
-  onSaved?: (b: Booking) => void;
+  booking?: Booking | null | undefined;
+  defaultCustomerId?: string | undefined;
+  fromLead?: Lead | null | undefined;
+  onSaved?: (b: Booking) => void | undefined;
 }) {
   const save = useSaveRecord("bookings");
   const [form, setForm] = useState<FormState>(() => blank(defaultCustomerId, fromLead));
@@ -94,10 +94,10 @@ export function BookingFormDialog({
 
   async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
-    if (!form.customer_id) return toast.error("اختر العميل");
-    if (!form.event_date) return toast.error("تاريخ المناسبة مطلوب");
+    if (!form.customer_id) { toast.error("اختر العميل"); return; }
+    if (!form.event_date) { toast.error("تاريخ المناسبة مطلوب"); return; }
     if (form.start_time && form.end_time && form.end_time <= form.start_time)
-      return toast.error("وقت الانتهاء يجب أن يكون بعد وقت البدء");
+      { toast.error("وقت الانتهاء يجب أن يكون بعد وقت البدء"); return; }
     const values = clean({
       ...form,
       guests: form.guests ? Number(form.guests) : null,

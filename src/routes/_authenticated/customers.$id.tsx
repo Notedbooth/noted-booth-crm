@@ -317,7 +317,7 @@ function InteractionComposer({ customerId }: { customerId: string }) {
   const save = useSaveRecord("customer_interactions");
   async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
-    if (!content.trim()) return toast.error("اكتب ملخص التواصل");
+    if (!content.trim()) { toast.error("اكتب ملخص التواصل"); return; }
     const ok = await save.mutateAsync({ values: { customer_id: customerId, type, content: content.trim() } }).catch(() => null);
     if (ok) {
       setContent("");
