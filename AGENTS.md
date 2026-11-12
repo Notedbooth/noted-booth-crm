@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- CRM data is read/written from the browser Supabase client under RLS; only privileged account work (bootstrap admin, team create/update/password) goes through server functions in `src/lib/team.functions.ts`. Why: RLS enforces role permissions per row, admin API needs the service role.
+- Role capabilities live in `src/lib/permissions.ts` and must stay in sync with the RLS helper functions (`is_staff`, `has_any_role`). Why: UI gating and database policies must agree.
+- Activity log rows are written only by the `log_activity` database trigger. Why: every create/update/delete is recorded regardless of which client made it.
+- External booking websites post to `/api/public/booking-requests` with the `x-api-key` secret; requests land in `booking_requests` for staff to convert. Why: keeps outside traffic out of core CRM tables.
+- No accounting, invoicing, expenses or VAT modules. Why: product scope is CRM and operations only.
