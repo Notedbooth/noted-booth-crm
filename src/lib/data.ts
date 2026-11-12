@@ -259,24 +259,24 @@ export function friendlyError(error: unknown): string {
 export function useSaveRecord<T extends TableName>(table: T) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, values }: { id?: string; values: Tables[T]["Insert"] | Tables[T]["Update"] }) => {
+    mutationFn: async ({ id, values }: { id?: string | undefined; values: Tables[T]["Insert"] | Tables[T]["Update"] }) => {
       if (id) {
-        const { data, error } = await supabase
-          .from(table)
-          .update(values as never)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data, error } = await (supabase.from(table) as any)
+          .update(values)
           .eq("id", id)
           .select()
           .single();
         if (error) throw error;
-        return data as Tables[T]["Row"];
+        return data as unknown as Tables[T]["Row"];
       }
-      const { data, error } = await supabase
-        .from(table)
-        .insert(values as never)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data, error } = await (supabase.from(table) as any)
+        .insert(values)
         .select()
         .single();
       if (error) throw error;
-      return data as Tables[T]["Row"];
+      return data as unknown as Tables[T]["Row"];
     },
     onSuccess: () => {
       INVALIDATE[table].forEach((key) => qc.invalidateQueries({ queryKey: key }));

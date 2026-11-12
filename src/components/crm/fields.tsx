@@ -53,7 +53,7 @@ export function OptionSelect({
   noneLabel?: string;
 }) {
   return (
-    <Select value={value ?? (allowNone ? NONE : undefined)} onValueChange={(v) => onChange(v === NONE ? null : v)}>
+    <Select {...((value ?? (allowNone ? NONE : undefined)) !== undefined ? { value: (value ?? NONE) as string } : {})} onValueChange={(v) => onChange(v === NONE ? null : v)}>
       <SelectTrigger className="w-full">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

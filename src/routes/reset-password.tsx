@@ -41,7 +41,7 @@ function ResetPassword() {
     return () => data.subscription.unsubscribe();
   }, []);
 
-  async function submit(e: FormEvent) {
+  async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
     if (password.length < 8) return toast.error("كلمة المرور يجب أن تكون 8 أحرف على الأقل");
     if (password !== confirm) return toast.error("كلمتا المرور غير متطابقتين");

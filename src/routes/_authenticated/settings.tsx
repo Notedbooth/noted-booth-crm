@@ -46,7 +46,7 @@ function ProfileCard() {
   const [name, setName] = useState(me.profile?.full_name ?? "");
   const [phone, setPhone] = useState(me.profile?.phone ?? "");
   const [pw, setPw] = useState("");
-  async function save(e: FormEvent) {
+  async function save(e: FormEvent): Promise<unknown> {
     e.preventDefault();
     const { error } = await supabase.from("profiles").update({ full_name: name.trim(), phone: phone || null }).eq("id", me.userId);
     if (error) return toast.error(error.message);
@@ -80,7 +80,7 @@ function PackagesCard() {
   const save = useSaveRecord("packages");
   const del = useDeleteRecord("packages");
   const [form, setForm] = useState({ name: "", duration_hours: "", price: "", description: "" });
-  async function add(e: FormEvent) {
+  async function add(e: FormEvent): Promise<unknown> {
     e.preventDefault();
     if (!form.name.trim()) return toast.error("اسم الباقة مطلوب");
     const ok = await save.mutateAsync({ values: { name: form.name.trim(), description: form.description || null, duration_hours: form.duration_hours ? Number(form.duration_hours) : null, price: form.price ? Number(form.price) : null, sort_order: data.length } }).catch(() => null);
