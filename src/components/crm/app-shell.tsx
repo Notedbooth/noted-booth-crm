@@ -38,7 +38,9 @@ import { LeadFormDialog } from "./lead-form";
 import { BookingFormDialog } from "./booking-form";
 import { TaskFormDialog } from "./task-form";
 
-type NavItem = { to: string; label: string; icon: typeof Users; cap?: Capability };
+type NavItem = {
+  to: "/dashboard" | "/customers" | "/pipeline" | "/tasks" | "/bookings" | "/requests" | "/reports" | "/activity" | "/team" | "/settings";
+  label: string; icon: typeof Users; cap?: Capability };
 
 const NAV: { group: string; items: NavItem[] }[] = [
   {
