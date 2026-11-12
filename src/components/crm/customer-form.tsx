@@ -58,7 +58,7 @@ export function CustomerFormDialog({
 
   const set = (k: keyof FormState) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  async function submit(e: FormEvent): Promise<unknown> {
+  async function submit(e: FormEvent): Promise<void> {
     e.preventDefault();
     const parsed = schema.safeParse(form);
     if (!parsed.success) { toast.error(parsed.error.issues[0]?.message); return; }

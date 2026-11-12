@@ -92,7 +92,7 @@ export function BookingFormDialog({
 
   const set = <K extends keyof FormState>(k: K, v: FormState[K]) => setForm((f) => ({ ...f, [k]: v }));
 
-  async function submit(e: FormEvent): Promise<unknown> {
+  async function submit(e: FormEvent): Promise<void> {
     e.preventDefault();
     if (!form.customer_id) { toast.error("اختر العميل"); return; }
     if (!form.event_date) { toast.error("تاريخ المناسبة مطلوب"); return; }

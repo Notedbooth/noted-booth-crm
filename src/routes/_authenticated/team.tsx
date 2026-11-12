@@ -85,7 +85,7 @@ function NewMemberDialog({ open, onOpenChange }: { open: boolean; onOpenChange: 
   const create = useServerFn(createTeamMember);
   const [form, setForm] = useState({ full_name: "", email: "", phone: "", password: "", role: "sales" as AppRole });
   const [busy, setBusy] = useState(false);
-  async function submit(e: FormEvent): Promise<unknown> {
+  async function submit(e: FormEvent): Promise<void> {
     e.preventDefault();
     if (form.password.length < 8) { toast.error("كلمة المرور 8 أحرف على الأقل"); return; }
     setBusy(true);

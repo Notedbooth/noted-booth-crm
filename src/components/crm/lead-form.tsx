@@ -87,7 +87,7 @@ export function LeadFormDialog({
 
   const set = <K extends keyof FormState>(k: K, v: FormState[K]) => setForm((f) => ({ ...f, [k]: v }));
 
-  async function submit(e: FormEvent): Promise<unknown> {
+  async function submit(e: FormEvent): Promise<void> {
     e.preventDefault();
     if (!form.customer_id) { toast.error("اختر العميل"); return; }
     if (form.title.trim().length < 2) { toast.error("عنوان الفرصة مطلوب"); return; }

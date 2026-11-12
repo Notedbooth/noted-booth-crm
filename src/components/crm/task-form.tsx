@@ -85,7 +85,7 @@ export function TaskFormDialog({
 
   const set = <K extends keyof FormState>(k: K, v: FormState[K]) => setForm((f) => ({ ...f, [k]: v }));
 
-  async function submit(e: FormEvent): Promise<unknown> {
+  async function submit(e: FormEvent): Promise<void> {
     e.preventDefault();
     if (form.title.trim().length < 2) { toast.error("عنوان المهمة مطلوب"); return; }
     const values = clean({

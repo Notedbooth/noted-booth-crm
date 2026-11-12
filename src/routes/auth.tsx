@@ -81,7 +81,7 @@ function SignInForms() {
   const [busy, setBusy] = useState(false);
   const navigate = useNavigate();
 
-  async function signIn(e: FormEvent): Promise<unknown> {
+  async function signIn(e: FormEvent): Promise<void> {
     e.preventDefault();
     setBusy(true);
     const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
@@ -99,7 +99,7 @@ function SignInForms() {
     navigate({ to: "/dashboard", replace: true });
   }
 
-  async function forgot(e: FormEvent): Promise<unknown> {
+  async function forgot(e: FormEvent): Promise<void> {
     e.preventDefault();
     setBusy(true);
     const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
@@ -166,7 +166,7 @@ function SetupForm() {
   const navigate = useNavigate();
   const qc = useQueryClient();
 
-  async function submit(e: FormEvent): Promise<unknown> {
+  async function submit(e: FormEvent): Promise<void> {
     e.preventDefault();
     if (form.password.length < 8) { toast.error("كلمة المرور يجب أن تكون 8 أحرف على الأقل"); return; }
     setBusy(true);

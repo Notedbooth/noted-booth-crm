@@ -32,7 +32,7 @@ import {
 import { INTERACTION_LABELS, INTERACTION_TYPES, type InteractionType } from "@/lib/constants";
 import { fmtDate, fmtDateTime, fmtMoney, fmtRelative } from "@/lib/format";
 
-export const Route = createFileRoute("/_authenticated/customers/")({
+export const Route = createFileRoute("/_authenticated/customers/$id")({
   head: () => ({ meta: [{ title: "ملف العميل — NOTED PHOTO BOOTH" }] }),
   loader: async ({ context, params }) => {
     const c = await context.queryClient.ensureQueryData(customerQuery(params.id));
@@ -315,7 +315,7 @@ function InteractionComposer({ customerId }: { customerId: string }) {
   const [type, setType] = useState<InteractionType>("call");
   const [content, setContent] = useState("");
   const save = useSaveRecord("customer_interactions");
-  async function submit(e: FormEvent): Promise<unknown> {
+  async function submit(e: FormEvent): Promise<void> {
     e.preventDefault();
     if (!content.trim()) { toast.error("اكتب ملخص التواصل"); return; }
     const ok = await save.mutateAsync({ values: { customer_id: customerId, type, content: content.trim() } }).catch(() => null);
